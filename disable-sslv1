@@ -1,0 +1,13 @@
+# PowerShell script to disable SSLv1 in Windows registry
+
+# Define the registry path for SSL protocols
+$sslRegistryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 1.0\Server"
+
+# Check if the SSLv1 registry key exists
+if (Test-Path $sslRegistryPath) {
+    # Disable SSLv1 by setting the Enabled DWORD value to 0
+    Set-ItemProperty -Path $sslRegistryPath -Name "Enabled" -Value 0
+    Write-Host "SSLv1 has been disabled."
+} else {
+    Write-Host "SSLv1 registry key does not exist. No action taken."
+}
